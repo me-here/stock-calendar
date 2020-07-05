@@ -1,0 +1,31 @@
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 100px);
+    grid-auto-rows: minmax(1em, auto);
+    grid-auto-columns: minmax(100px, auto);
+    margin: ;
+}
+
+.day-label {
+    height: 20px;
+    text-align: center;
+    background-color: thistle;
+}
+
+.month-label {
+    grid-column: 1 / -1;
+    text-align: center;
+    height: 2em;
+    background-color: tomato;
+}
+
+#variable-start-space {
+    display: none;
+    grid-column: 1 / 1;
+}
+
+/* days */
+#variable-start-space ~ div {
+    background-color: teal;
+    height: 100px;
+}
