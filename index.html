@@ -9,7 +9,15 @@
         <input type="text" id="symbol" placeholder="Ticker symbol (ex. SPY)">
         <button id="search">Search</button>
         <div class="calendar-grid">
-            <div class="month-label">July</div>
+            <div class="month-label">
+                <div href="" class="monthChange" id="previousMonth">
+                    <
+                </div>
+                <h2 id="month" style="margin-right: auto; margin-left: auto;">July</h2>
+                <div href="" class="monthChange" id="nextMonth">
+                    >
+                </div>
+            </div>
             
             <div class="day-label">Sunday</div>
             <div class="day-label">Monday</div>
@@ -20,9 +28,11 @@
             <div class="day-label">Saturday</div>
 
             <div class="calendar-grid">
-                <div style="grid-column: 4 / 5; grid-row: 1; height: 40px; background-color: green; z-index: 10; justify-content: center;">Price increased by 20 points.</div>
+                <div class="bubble" id="bubble-1">
+                    <div>Price &uarr; by 20 points.</div>
+                    </div>
                 <div id="variable-start-space"></div>
-                <div style="grid-column: 4; grid-row: 1;">1</div>
+                <div>1</div>
                 <div>2</div>
                 <div>3</div>
                 <div>4</div>
