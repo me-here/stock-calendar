@@ -55,20 +55,9 @@
     align-items: center;
     margin: 10px;
     border-radius: 30px;
-    /*background-color: red; 
-    grid-column: 4 / 6; 
-    grid-row: 1;*/
 }
 
 .bubble * {
     padding-left: 10px;
     padding-right: 10px;
 }
-/*
-#bubble-1 {*/
-    /* Programatically update */
-    /*display: flex;
-    background-color: red; 
-    grid-column: 4 / 6; 
-    grid-row: 1;
-}*/

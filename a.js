@@ -28,53 +28,43 @@ function processData(data) {
 
 
         // Not a weekday
-        dayOfWeek = (parseInt(dates[i].innerHTML) + offset - 1) % 7;
+        const itemNum = (parseInt(dates[i].innerHTML) + offset - 1)
+        const dayOfWeek = itemNum % 7;
+        const rowNum = Math.floor(itemNum / 7) + 1;
         if (dayOfWeek == 1 | dayOfWeek == 7) continue;
 
         // we didn't finish the month
         if (i > processedClose.length - 2) break;
 
         let color = "red";
-        if (processedClose[i + 1] - processedClose[i] >= 0) { // if it closed higher than the previous day
+        const ptsChange = processedClose[i + 1] - processedClose[i];
+        console.log(ptsChange)
+        if (ptsChange >= 0) { // if it closed higher than the previous day
             //let bubble = document.createElement("div");
             color = "green";
         }
         dates[i].style.backgroundColor = color;
 
-
-
-    }
-
-    // Go through each of the dates
-    startColumn = offset;
-    for (let i = 0; i < dates.length; i++) {
-        console.log(i)
-        //if (i > processedClose.length - 2) break;
-        dayOfWeek = (parseInt(dates[i].innerHTML) + parseInt(offset) - 1) % 7;
-        if (dayOfWeek == 1 | dayOfWeek == 7) continue;
-
-        // TODO: redraw method to clear events on next month, rectangles clear next month
-        
-        
-        
         if(dates[i].style.backgroundColor != dates[i+1].style.backgroundColor) {
             let bubble = document.createElement('div');
-            bubble.innerHTML = "<div>Price &uarr; by 20 points.</div>";
-            bubble.className = 'bubble';
-            console.log("BBBB")
-            endColumn = i + 1 + offset;
-            
+            let arrow = ""
+            console.log(color)
+            if(color == "green") {
+                bubble.style.backgroundColor = "rgb(88, 196, 128)"
+                arrow = "&uarr;"
+            } else {
+                bubble.style.backgroundColor = "rgb(207, 128, 112)";
+                arrow = "&darr;"
+            }
+
+            bubble.innerHTML = `<div>Price ${arrow} by 20 points.</div>`;
+            bubble.className = 'bubble';            
             bubble.style.gridColumnStart = startColumn
-            bubble.style.gridColumnEnd = endColumn
-            bubble.style.gridRow = "1";
-            
-            
-            bubble.style.backgroundColor = "red";
+            bubble.style.gridColumnEnd = i + 1 + offset;
+            bubble.style.gridRow = `${rowNum}`;
 
             document.getElementById('dates').insertBefore(bubble, document.getElementById('variable-start-space'));
         }
-        
-        
     }
 }
 
@@ -145,15 +135,23 @@ function configureGrid() {
 }
 
 function displayMonth(newMonth) {
+    clearEvents();
     offsetCalendar(newMonth);
     configureGrid();
     return
+}
+
+function clearEvents() {
+    for(let bubble of document.getElementsByClassName('bubble')) {
+        bubble.remove();
+    }
 }
 
 
 window.onload = function () {
     displayMonth(page.currentDate);
     document.getElementById('search').addEventListener('click', () => {
+        displayMonth(page.currentDate);
         fetch();
     });
 
