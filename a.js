@@ -19,6 +19,7 @@ function getData(symbol, start, end, timeframe = "D") {
 
 function processData(data) {
     processedClose = data.c
+    console.log(processedClose)
     timestamps = data.t
     let dates = document.querySelectorAll("#variable-start-space ~ div")
     offset = parseInt(document.getElementById("variable-start-space").style.gridColumnEnd)
@@ -102,11 +103,10 @@ function calculateCalendarRange(date = currentDate) {
     const month = date.getMonth();
 
     firstDayOfMonth = new Date(year, month, 1);
-    //console.log(firstDayOfMonth.getMonth(), firstDayOfMonth.getDay());
     lastDayLastMonth = getLastWeekday(firstDayOfMonth);
+    console.log(lastDayLastMonth, "JSFHJFHJKFHKJSFJKFHKJ")
     lastDayOfMonth = new Date(year, month + 1, 0, 23);
 
-    //console.log(firstDayOfMonth.getDay())
     return {
         firstDayOfWeek: firstDayOfMonth.getDay(),
         lastDayOfMonth: lastDayOfMonth.getDate(),
@@ -117,10 +117,10 @@ function calculateCalendarRange(date = currentDate) {
 }
 
 function getLastWeekday(date) {
-    let newDate = new Date(date)
-    newDate.setHours(-24);
-    while (date.getDay() == 0 && date.getDay() == 6) {  // must be weekday
-        newDate.setHours(-24);
+    let newDate = new Date(date.getTime())
+    newDate.setHours(newDate.getHours()-24);
+    while (newDate.getDay() == 0 | newDate.getDay() == 6) {  // must be weekday
+        newDate.setHours(newDate.getHours()-24);
     } 
     return newDate;
 }
@@ -202,6 +202,8 @@ function clearEvents() {
 
 
 window.onload = function () {
+    d = getLastWeekday(new Date("June 1, 2020 03:24:00"))
+    console.log(d, "BLAH")
     displayMonth(page.currentDate);
     document.getElementById('search').addEventListener('click', () => {
         displayMonth(page.currentDate);
