@@ -45,10 +45,22 @@ function processData(data) {
         }
         dates[i].style.backgroundColor = color;
 
+        
+    }
+
+    for(let i = 0; i < dates.length; i++) {
+        const itemNum = (parseInt(dates[i].innerHTML) + offset - 1)
+        const dayOfWeek = itemNum % 7;
+        const rowNum = Math.floor(itemNum / 7) + 1;
+        if (dayOfWeek == 1 | dayOfWeek == 7) continue;
+
+        // we didn't finish the month
+        if (i > processedClose.length - 2) break;
         if(dates[i].style.backgroundColor != dates[i+1].style.backgroundColor) {
+            let color = dates[i].style.backgroundColor;
+
             let bubble = document.createElement('div');
             let arrow = ""
-            console.log(color)
             if(color == "green") {
                 bubble.style.backgroundColor = "rgb(88, 196, 128)"
                 arrow = "&uarr;"
